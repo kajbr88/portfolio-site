@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact-Me</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.5s ease;
+            /* background: repeating-linear-gradient(
+                44.9deg,
+                rgba(172, 171, 176, 0.9) 0px,
+                rgba(255, 255, 255, 0.9) 1px,
+                rgba(213, 244, 213, 0.9) 2px,
+                rgba(244, 244, 244, 0.9) 3px,
+                rgba(255, 255, 255, 0.9) 14px
+            ); */
+            background:  #3b476e97;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  padding: 0 6px;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            /* color: #eee;
+            background: repeating-linear-gradient(
+                44.9deg,
+                rgba(172, 171, 176, 0.9) 0px,
+                rgba(0, 0, 0, 0.9) 1px,
+                rgba(0, 0, 0, 0.9) 2px,
+                rgba(47, 42, 42, 0.9) 3px,
+                rgba(0, 0, 0, 0.9) 14px
+            ); */
+            background: #010104;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  padding: 0 6px;
+  color: #dcdcdc;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s ease;
+        }
+        .container.dark-mode {
+            background-color: #2a2a2a;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            color: #1976d2;
+            transition: color 0.5s ease;
+        }
+        h1.dark-mode {
+            color: #64b5f6;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: inherit; /* Inherit text color from body */
+            transition: color 0.5s ease;
+        }
+        p.dark-mode {
+            color: #eee;
+        }
+        hr {
+            border: 1px solid #e0e0e0;
+            margin: 20px 0;
+            transition: border-color 0.5s ease;
+        }
+        hr.dark-mode {
+            border-color: #424242;
+        }
+        /* Form styles (optional, uncomment in HTML to use) */
+        /*
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+        form.dark-mode {
+            background-color: #333;
+            border-color: #555;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            transition: color 0.5s ease;
+        }
+        label.dark-mode {
+            color: #ccc;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            background-color: #fff;
+            color: #333;
+        }
+        input[type="text"].dark-mode,
+        input[type="email"].dark-mode,
+        textarea.dark-mode {
+            background-color: #444;
+            border-color: #777;
+            color: #eee;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #1976d2;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #1565c0;
+        }
+        input[type="submit"].dark-mode {
+            background-color: #64b5f6;
+        }
+        input[type="submit"].dark-mode:hover {
+            background-color: #42a5f5;
+        }
+        */
+        #dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            color: #333;
+        }
+        #dark-mode-toggle.dark-mode {
+            background-color: #1f1f1f;
+            border-color: #424242;
+            color: #eee;
+        }
+        #dark-mode-toggle span {
+            margin-left: 5px;
+            transition: color 0.3s ease;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="">
+    <div class="container">
+        <h1>My Contact Details</h1>
+        <p>+91-7483685527</p>
+        <p>kajbr88@gmail.com</p>
+        <hr>
+        </div>
+    <button id="dark-mode-toggle">
+        <i class="fas fa-sun"></i>
+        <span>Light Mode</span>
+    </button>
+    <script>
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const headings = document.querySelectorAll('h1');
+        const paragraphs = document.querySelectorAll('p');
+        const hrs = document.querySelectorAll('hr');
+        // const form = document.querySelector('form'); // If you uncomment the form
+        // const labels = document.querySelectorAll('label'); // If you uncomment the form
+        // const inputs = document.querySelectorAll('input[type="text"], input[type="email"], textarea, input[type="submit"]'); // If you uncomment the form
+
+        // Apply initial dark mode styles (as in your original code)
+        body.classList.add('dark-mode');
+        container.classList.add('dark-mode');
+        headings.forEach(heading => heading.classList.add('dark-mode'));
+        paragraphs.forEach(p => p.classList.add('dark-mode'));
+        hrs.forEach(hr => hr.classList.add('dark-mode'));
+        // if (form) form.classList.add('dark-mode'); // If you uncomment the form
+        // labels.forEach(label => label.classList.add('dark-mode')); // If you uncomment the form
+        // inputs.forEach(input => input.classList.add('dark-mode')); // If you uncomment the form
+        darkModeToggle.classList.add('dark-mode');
+        darkModeToggle.querySelector('i').className = 'fas fa-sun';
+        darkModeToggle.querySelector('span').textContent = 'Light Mode';
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            container.classList.toggle('dark-mode');
+            headings.forEach(heading => heading.classList.toggle('dark-mode'));
+            paragraphs.forEach(p => p.classList.toggle('dark-mode'));
+            hrs.forEach(hr => hr.classList.toggle('dark-mode'));
+            // if (form) form.classList.toggle('dark-mode'); // If you uncomment the form
+            // labels.forEach(label => label.classList.toggle('dark-mode')); // If you uncomment the form
+            // inputs.forEach(input => input.classList.toggle('dark-mode')); // If you uncomment the form
+            darkModeToggle.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.querySelector('i').className = 'fas fa-sun';
+                darkModeToggle.querySelector('span').textContent = 'Light Mode';
+            } else {
+                darkModeToggle.querySelector('i').className = 'fas fa-moon';
+                darkModeToggle.querySelector('span').textContent = 'Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>
