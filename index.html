@@ -3,41 +3,78 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abhijeet's Portfolio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 20px;
-            background-color: #f0f0f0;
-            color: #343434;
-            transition: background-color 0.5s ease;
-            background: #3b476e97;
-            background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-            padding: 0 6px;
+        /* CSS Variables for easier theme management */
+        :root {
+            --primary-text-color: #343434;
+            --secondary-text-color: #777;
+            --background-color: #f0f0f0;
+            --container-bg: #fff;
+            --link-color: #2196f3;
+            --header-color: #1976d2;
+            --border-color: #e0e0e0;
+            --list-bg: #e0e0e0;
+            --skills-block-bg: #e0e0e0;
+            --progress-bar-container-bg: #e0e0e0;
+            --toggle-bg: #fff;
+            --toggle-border: #e0e0e0;
+            --toggle-icon-color: #333;
+            --toggle-text-color: #333;
         }
 
         body.dark-mode {
-            background: #010104;
+            --primary-text-color: #dcdcdc;
+            --secondary-text-color: #ddd;
+            --background-color: #010104;
+            --container-bg: #2a2a2a;
+            --link-color: #81d4fa;
+            --header-color: #64b5f6;
+            --border-color: #424242;
+            --list-bg: #424242;
+            --skills-block-bg: #424242;
+            --progress-bar-container-bg: #424242;
+            --toggle-bg: #1f1f1f;
+            --toggle-border: #424242;
+            --toggle-icon-color: #eee;
+            --toggle-text-color: #eee;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0; /* Remove default body margin */
+            padding: 20px 6px; /* Apply padding here */
+            background-color: var(--background-color);
             background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-            padding: 0 6px;
-            color: #dcdcdc;
+            color: var(--primary-text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         .container {
             max-width: 960px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: var(--container-bg);
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.5s ease;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .container.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
         }
 
         .container.dark-mode {
-            background-color: #2a2a2a;
             box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
         }
 
@@ -47,108 +84,78 @@
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-top: 5px; /* Adjusted: Added margin-top to move image down */
         }
 
-        h1,
-        h3 {
-            color: #1976d2;
+        h1, h3 {
+            color: var(--header-color);
             transition: color 0.5s ease;
-        }
-
-        h1.dark-mode,
-        h3.dark-mode {
-            color: #64b5f6;
-        }
-
-        h3 {
-            transition: color 0.5s ease;
-        }
-
-        h3.dark-mode {
-            color: #eee;
         }
 
         h4 {
-            color: #777;
+            color: var(--secondary-text-color);
             transition: color 0.5s ease;
             display: flex;
             align-items: center;
         }
 
-        h4.dark-mode {
-            color: #ddd;
-        }
-
         a {
-            color: #2196f3;
+            color: var(--link-color);
             text-decoration: none;
             margin-right: 15px;
-            transition: color 0.3s ease;
-            /* Reduced transition time for smoother hover */
-        }
-
-        a.dark-mode {
-            color: #81d4fa;
+            transition: color 0.3s ease, opacity 0.3s ease;
         }
 
         a:hover {
             text-decoration: underline;
             opacity: 0.8;
-            /* Added slight opacity change on hover */
         }
 
         hr {
-            border: 1px solid #e0e0e0;
+            border: none; /* Reset default border */
+            border-bottom: 1px solid var(--border-color);
             margin: 20px 0;
             transition: border-color 0.5s ease;
         }
 
-        hr.dark-mode {
-            border-color: #424242;
-        }
-
+        /* Default list styling */
         ul {
-            list-style-type: disc;
+            list-style-type: disc; /* Default bullet type */
             padding-left: 20px;
-            transition: color 0.5s ease, background-color 0.3s ease;
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 15px;
-            background-color: #e0e0e0;
-            color: black;
+            background-color: var(--list-bg);
+            color: var(--primary-text-color);
+            transition: color 0.5s ease, background-color 0.3s ease;
         }
 
         ul.dark-mode {
             color: #eee;
-            background-color: #424242;
         }
 
         li {
             margin-bottom: 8px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             color: inherit;
             transition: color 0.5s ease;
         }
 
-        li.dark-mode {
-            color: #eee;
+        li .course-link {
+            margin-left: auto;
+            white-space: nowrap;
         }
 
         .progress-bar-container {
-            background-color: #e0e0e0;
+            background-color: var(--progress-bar-container-bg);
             border-radius: 5px;
             height: 10px;
             width: 100px;
             margin-left: auto;
             overflow: hidden;
             transition: background-color 0.5s ease, border 0.3s ease;
-            border: 1px solid #777;
-        }
-
-        .progress-bar-container.dark-mode {
-            background-color: #424242;
-            border-color: #424242;
+            border: 1px solid var(--secondary-text-color);
         }
 
         .progress-bar {
@@ -161,36 +168,36 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            color: var(--primary-text-color);
             transition: color 0.5s ease;
         }
-
-        table.dark-mode {
-            color: #eee;
+        
+        /* For the top profile table */
+        .profile-table td {
+            padding: 0 20px 0 0;
+            vertical-align: top;
+        }
+        .profile-table img {
+            margin-right: 20px;
+        }
+        /* New rule: Remove top margin from h1 in profile table to align with image top */
+        .profile-table td h1 {
+            margin-top: 0;
         }
 
-        th,
-        td {
+
+        th, td {
             padding: 8px;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid var(--border-color);
             text-align: left;
-            color: #333;
-            transition: color 0.5s ease;
-        }
-
-        th.dark-mode,
-        td.dark-mode {
-            color: #eee;
-            border-bottom-color: #424242;
+            color: var(--primary-text-color);
+            transition: color 0.5s ease, border-bottom-color 0.5s ease;
         }
 
         th {
             font-weight: 500;
-            color: #757575;
+            color: var(--secondary-text-color);
             transition: color 0.5s ease;
-        }
-
-        th.dark-mode {
-            color: #bdbdbd;
         }
 
         tbody tr:last-child td {
@@ -200,12 +207,8 @@
         .icon {
             vertical-align: middle;
             margin-right: 5px;
-            color: #757575;
+            color: var(--secondary-text-color);
             transition: color 0.5s ease;
-        }
-
-        .icon.dark-mode {
-            color: #bdbdbd;
         }
 
         .social-links {
@@ -215,21 +218,23 @@
         .social-links a {
             margin-right: 15px;
             font-size: 1.2em;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a.dark-mode {
-            color: #81d4fa;
-        }
-
-        .social-links a:hover {
-            opacity: 0.8;
         }
 
         .skill-icon {
-            width: 28px;
-            height: 28px;
-            margin-right: 5px;
+            width: 36px;
+            height: 36px;
+            margin: 5px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .skills-block {
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 10px;
+            background-color: var(--skills-block-bg);
+            transition: background-color 0.3s ease;
+            text-align: center;
         }
 
         #dark-mode-toggle {
@@ -237,8 +242,8 @@
             top: 20px;
             right: 20px;
             padding: 10px;
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
+            background-color: var(--toggle-bg);
+            border: 1px solid var(--toggle-border);
             border-radius: 5px;
             cursor: pointer;
             display: flex;
@@ -247,65 +252,95 @@
             z-index: 1000;
         }
 
-        #dark-mode-toggle.dark-mode {
-            background-color: #1f1f1f;
-            border-color: #424242;
-        }
-
         #dark-mode-toggle i {
-            color: #333;
+            color: var(--toggle-icon-color);
             transition: color 0.3s ease;
-        }
-
-        #dark-mode-toggle.dark-mode i {
-            color: #eee;
         }
 
         #dark-mode-toggle span {
             margin-left: 5px;
-            color: #333;
+            color: var(--toggle-text-color);
             transition: color 0.3s ease;
         }
 
-        #dark-mode-toggle.dark-mode span {
-            color: #eee;
+        /* Styling for Work Experience section */
+        .job-title {
+            font-weight: bold;
+            color: var(--header-color);
+            transition: color 0.5s ease;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .skills-block {
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 10px;
-            background-color: #e0e0e0;
-            transition: background-color 0.3s ease;
+        .job-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
         }
 
-        .skills-block.dark-mode {
-            background-color: #424242;
+        .company-location-row { /* New flex container for company name and location */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            margin-bottom: 5px;
         }
 
-        /* Add smooth transition for the main container */
-        .container {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        .company-name-only, .job-location { /* Styles for the new spans */
+            font-size: 1em; /* Matches responsibilities font size */
+            color: var(--secondary-text-color);
+            transition: color 0.5s ease;
+        }
+        
+        .job-location {
+            white-space: nowrap; /* Prevent location text from wrapping */
         }
 
-        .container.fade-out {
-            opacity: 0;
-            transform: translateY(-10px);
+        .job-dates {
+            font-size: 1em; /* Increased font size */
+            color: var(--secondary-text-color);
+            transition: color 0.5s ease;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        .responsibilities ul {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0; /* Reset default padding */
+            margin-top: 5px;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .responsibilities li {
+            position: relative; /* For pseudo-element positioning */
+            font-size: 1em; /* Increased font size for job responsibilities */
+            margin-bottom: 4px;
+            padding-left: 15px; /* Space for the custom bullet */
+            color: var(--primary-text-color);
+        }
+
+        .responsibilities li::before {
+            content: '*'; /* The asterisk character */
+            position: absolute;
+            left: 0;
+            color: var(--primary-text-color); /* Ensure asterisk color changes with theme */
+            font-weight: bold; /* Make the asterisk stand out a bit */
+            top: 0; /* Align with the top of the text */
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="">
+<body>
     <div class="container">
-        <table cellspacing="20">
+        <table class="profile-table">
             <tr>
                 <td>
-                    <img style="vertical-align: top;" src="images/abhijeet.png" alt="Abhijeet's profile picture">
+                    <img src="images/abhijeet.png" alt="Abhijeet's profile picture">
                 </td>
                 <td>
                     <h1>Abhijeet Kumar Barua</h1>
@@ -316,12 +351,43 @@
                         <span class="icon">❤️</span>listening to
                         music and playing video games.</p>
                     <p>I've recently taken several courses for Full Stack Web(frontend and backend) using ReactJS-NextJS-Typescript-EJS-NodeJS-ExpressJS-Fastify-GraphQL-MongoDB-Mongoose-Firebase-TailwindCSS-Bootstrap-MaterialUI-Redux-SQL-PostgreSQL-NoSQL-JWT. Full Stack Mobile App Development(Native iOS & Cross Platform using React Native and Flutter), Design using Figma(Web & Mobile) & Agile Development-Scrum Master. Majority of courses I've taken are Mobile app development focused using following frameworks Full Stack React-Native(Expo & CLI), Full Stack Flutter, IOS-(SwiftUI, UIKit & Obj-C) as i'm looking for Mobile App Development role. Currently learning Devops-(AWS, Linux, Scripting, Jenkins, Ansible, GitOps, Docker, Kubernetes, CI-CD Pipeline & Terraform.), Cloud(Serverless) & Microservices technologies using both "YAML & CDK approach", Statistics, Data-Science, AI, Machine-Learning, Native Android App Development using Java/Kotlin.</p>
-                        <!-- Furthermore, I have also plan to start with Prompt Engineering using Python, Native Android
-                        Development using Kotlin/Java and more. -->
+                    <!-- Furthermore, I have also plan to start with Prompt Engineering using Python, Native Android
+                        Development using Kotlin/Kotlin and more. -->
                 </td>
             </tr>
         </table>
+
         <hr>
+
+        <section class="work-experience-section">
+            <h3 class=""><span class="icon">💼</span> Work Experience & Internships</h3>
+            <div class="experience-entry">
+                <div class="job-details">
+                    <span class="job-title">Full Stack Mobile App Developer Intern</span>
+                    <span class="job-dates">April 2024 – Oct 2024</span>
+                </div>
+                <div class="company-location-row">
+                    <span class="company-name-only">Zenrays Technologies Pvt Ltd</span>
+                    <span class="job-location"><span class="icon fas fa-map-marker-alt"></span> Karnataka, Bengaluru</span>
+                </div>
+                <div class="responsibilities">
+                    <ul>
+                        <li>Assisted & Collaborated in development, including design, coding, testing, of high-quality React Native cross platform EduTech mobile app.</li>
+                        <li>Implemented pixel-perfect UI components by design guidelines to enhance user experience and consistency.</li>
+                        <li>Wrote modular, reusable code using JSX and TypeScript to improve development efficiency.</li>
+                        <li>Implemented Unit and End to End tests using Jest and Detox, ensuring the stability of the mobile app.</li>
+                        <li>Utilized React hooks, Context API, and Redux for state management to streamline app functionality and improve performance.</li>
+                        <li>Integrated apps with backend services using RESTful APIs and third-party services like Firebase and AWS.</li>
+                        <li>Leveraged native development knowledge of SwiftUI, UIKit & Objective-C, Java, and Kotlin to bridge React Native with native modules.</li>
+                        <li>Utilized Git to collaborate with the team through push and pull requests, and participated in code reviews for adherence to best practices.</li>
+                        <li>Gained exposure and actively participated in the company's new cross-platform Flutter side project, leveraging its capabilities for unified codebase development across web, mobile and other platforms which they were planning and developing to deploy in future to replace existing separate stack, and understanding its long-term strategic benefits for the company.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
         <h3 class=""><span class="icon">📚</span> Courses Taken</h3>
         <h4 class=""><i class="fas fa-graduation-cap icon"></i> Formal Education</h4>
         <ul class="">
@@ -331,14 +397,14 @@
         <h4 class=""><i class="fas fa-paint-brush icon"></i> Figma</h4>
         <ul class="">
             <li class="">
-                <a href="">Complete Web & Mobile Designer: UI/UX, Figma, +more<span class="icon"> by Andrei Neagoie &
+                <a href="" class="course-title-link">Complete Web & Mobile Designer: UI/UX, Figma, +more<span class="icon"> by Andrei Neagoie &
                         Daniel Schifano from Zero To
                         Mastery</span></a>
                 <a href="https://kajbr88.github.io/figma-project-web-and-mobileapp/" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 95%;"></div>
                 </div> -->
             </li>
@@ -347,34 +413,35 @@
         <h4 class=""><i class="fab fa-app-store-ios icon"></i> iOS (SwiftUI, UIKIT & Objective-C)</h4>
         <ul class="">
             <li class="">
-                <a href="">100 Days of SwiftUI<span class="icon"> by Paul Hudson from "hackingwithswift.com and his
+                <a href="" class="course-title-link">100 Days of SwiftUI<span class="icon"> by Paul Hudson from "hackingwithswift.com and his
                         YouTube site @twostraws</span>(SWIFTUI)</a>
-                <a href="https://github.com/kajbr88/100-Days-of-SwiftUI" target="_blank" class="course-link">
+                <a href="https://github.com/kajbr88/100-Days-of-SwiftUI" target="_blank"
+                    class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 95%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">iOS & Swift - The Complete iOS App Development Bootcamp<span class="icon"> by Dr. Angela Yu
+                <a href="" class="course-title-link">iOS & Swift - The Complete iOS App Development Bootcamp<span class="icon"> by Dr. Angela Yu
                         from Udemy</span>(UIKIT)</a>
                 <a href="https://github.com/kajbr88/iOS-Swift-The-Complete-iOS-App-Development-Bootcamp" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 70%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">The-Complete-iOS-Swift-Objective-C-Developer-Course<span class="icon"> by Morteza Kordi from
+                <a href="" class="course-title-link">The-Complete-iOS-Swift-Objective-C-Developer-Course<span class="icon"> by Morteza Kordi from
                         Udemy</span>(Objective-C)</a>
                 <a href="https://github.com/kajbr88/The-Complete-iOS-Swift-Objective-C-Developer-Course" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 70%;"></div>
                 </div> -->
             </li>
@@ -382,18 +449,18 @@
         <h4 class=""><i class="fab fa-react icon"></i> React Native (Expo & CLI with Typescript)</h4>
         <ul class="">
             <li class="">
-                <a href="">React Native - The Practical Guide [2024]<span class="icon"> by Maximilian Schwarzmüller from
+                <a href="" class="course-title-link">React Native - The Practical Guide [2024]<span class="icon"> by Maximilian Schwarzmüller from
                         Udemy</span>(Expo)</a>
                 <a href="https://github.com/kajbr88/React-Native-The-Practical-Guide-2025-" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 95%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">Grocery Delivery App(Customer-Delivery & Admin App) Full-Stack App using
+                <a href="" class="course-title-link">Grocery Delivery App(Customer-Delivery & Admin App) Full-Stack App using
                     R.N-CLI/Typescript/Google-Maps & Backend-using(Node.js, Fastify etc.)<span class="icon"> by
                         Ritik Prasad
                         from YouTube @ritik_prasad</span>(CLI & Typescript)</a>
@@ -401,7 +468,7 @@
                     target="_blank" class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 70%;"></div>
                 </div> -->
             </li>
@@ -409,35 +476,35 @@
         <h4 class=""><i class="fas fa-mobile-alt icon"></i> Flutter</h4>
         <ul class="">
             <li class="">
-                <a href="">The Complete Flutter Development Bootcamp with Dart<span class="icon"> by Dr. Angela Yu from
+                <a href="" class="course-title-link">The Complete Flutter Development Bootcamp with Dart<span class="icon"> by Dr. Angela Yu from
                         Udemy</span></a>
                 <a href="https://github.com/kajbr88/The-Complete-Flutter-Development-Bootcamp-with-Dart" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 97%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">Flutter, Nodejs, Express, MongoDB: Build Multi-Store App<span class="icon"> by Macaulay
+                <a href="" class="course-title-link">Flutter, Nodejs, Express, MongoDB: Build Multi-Store App<span class="icon"> by Macaulay
                         Famous from Udemy</span>(User, Vendor and Web/Super-Admin using (Flutter for Web) App)</a>
                 <a href="https://github.com/kajbr88/Flutter-Nodejs-Express-MongoDB-Build-Multi-Store-App.git"
                     target="_blank" class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 50%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">Food Delivery App : Uber Eats (Flutter & Firebase)<span class="icon"> by Sanjay Kumar Das
+                <a href="" class="course-title-link">Food Delivery App : Uber Eats (Flutter & Firebase)<span class="icon"> by Sanjay Kumar Das
                         from Udemy</span>(Restaurant, User & Delivery Partner App)</a>
                 <a href="https://github.com/kajbr88/Food-Delivery-App-Uber-Eats-Flutter-Firebase-.git" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 50%;"></div>
                 </div> -->
             </li>
@@ -445,35 +512,35 @@
         <h4 class=""><i class="fas fa-code icon"></i> Web Development and Backend Development</h4>
         <ul class="">
             <li class="">
-                <a href="">React - The Complete Guide 2024 (incl. Next.js, Redux)<span class="icon"> by Maximilian
+                <a href="" class="course-title-link">React - The Complete Guide 2024 (incl. Next.js, Redux)<span class="icon"> by Maximilian
                         Schwarzmüller from Udemy</span></a>
                 <a href="https://github.com/kajbr88/React-The-Complete-Guide-2025-incl.-Next.js-Redux-" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 90%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">The Complete Full-Stack Web Development Bootcamp<span class="icon"> by Dr. Angela Yu from
+                <a href="" class="course-title-link">The Complete Full-Stack Web Development Bootcamp<span class="icon"> by Dr. Angela Yu from
                         Udemy</span></a>
                 <a href="https://github.com/kajbr88/The-Complete-Full-Stack-Web-Development-Bootcamp" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 90%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">TypeScript Tutorial by Shaun Pelling<span class="icon"> from Udemy, "netninja.dev" and his
+                <a href="" class="course-title-link">TypeScript Tutorial by Shaun Pelling<span class="icon"> from Udemy, "netninja.dev" and his
                         YouTube site @NetNinja</span></a>
                 <a href="https://github.com/kajbr88/TypeScript-Tutorial-by-Shaun-Pelling-from-Net-Ninja" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 100%;"></div>
                 </div> -->
             </li>
@@ -481,35 +548,35 @@
         <h4 class=""><i class="fas fa-cloud icon"></i>DevOps, CI-CD, AWS Technologies, Cloud(Serverless) & MicroServices</h4>
         <ul class="">
             <li class="">
-                <a href="">React Native & Flutter Team Lead Series: Advanced Concepts, Testing, and CI/CD for Team Leads<span class="icon"> by Ritik Prasad
+                <a href="" class="course-title-link">React Native & Flutter Team Lead Series: Advanced Concepts, Testing, and CI/CD for Team Leads<span class="icon"> by Ritik Prasad
                         from YouTube @ritik_prasad</span></a>
                 <a href="https://github.com/kajbr88/React-Native-and-Flutter-CI-CD" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 90%;"></div>-
                 </div> -->
             </li>
             <li class="">
-                <a href="">Serverless Framework Guide: API Gateway, AWS & Node.js<span class="icon"> by Macaulay Famous
+                <a href="" class="course-title-link">Serverless Framework Guide: API Gateway, AWS & Node.js<span class="icon"> by Macaulay Famous
                         from Udemy</span>(YAML Approach)</a>
                 <a href="https://github.com/kajbr88/Serverless-Framework-Guide-API-Gateway-AWS-Node.js" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 15%;"></div>
                 </div> -->
             </li>
-             <li class="">
-                <a href="">DevOps Beginners to Advanced with Projects<span class="icon"> by Imran Teli
+            <li class="">
+                <a href="" class="course-title-link">DevOps Beginners to Advanced with Projects<span class="icon"> by Imran Teli
                         from Udemy</span>(AWS, Linux, Scripting, Jenkins, Ansible, GitOps, Docker, Kubernetes, & Terraform.)</a>
                 <a href="https://github.com/kajbr88/Serverless-Framework-Guide-API-Gateway-AWS-Node.js" target="_blank"
                     class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 30%;"></div>
                 </div> -->
             </li>
@@ -517,25 +584,25 @@
         <h4 class=""><i class="fas fa-brain icon"></i> Data Science and Machine Learning</h4>
         <ul class="">
             <li class="">
-                <a href="">The Full Stack Data Science Bootcamp<span class="icon"> by Dr. Briit from Udemy,
+                <a href="" class="course-title-link">The Full Stack Data Science Bootcamp<span class="icon"> by Dr. Briit from Udemy,
                         "total-data-science.teachable.com" and his YouTube site @DataMentor</span></a>
                 <a href="[YOUR_WEB_BOOTCAMP_GITHUB_LINK]" target="_blank" class="course-link">
                     <i class="material-icons" style="color: #9e9e9e;">code</i> GitHub
                 </a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 50%;"></div>
                 </div> -->
             </li>
             <li class="">
-                <a href="">Advanced Feature Engineering For Data Science A-Z<span class="icon"> by Dr. Briit</span></a>
-<!--                 <div class="progress-bar-container">
+                <a href="" class="course-title-link">Advanced Feature Engineering For Data Science A-Z<span class="icon"> by Dr. Briit</span></a>
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 20%;"></div>
                 </div> -->
             </li>
             <li>
-                <a href="">Mathematics-Basics to Advanced for Data Science And GenAI<span class="icon"> by Krish Naik
+                <a href="" class="course-title-link">Mathematics-Basics to Advanced for Data Science And GenAI<span class="icon"> by Krish Naik
                         from Udemy</span></a>
-<!--                 <div class="progress-bar-container">
+                <!-- <div class="progress-bar-container">
                     <div class="progress-bar" style="width: 95%;"></div>
                 </div> -->
             </li>
@@ -683,72 +750,80 @@
         <span>Light Mode</span>
     </button>
     <script>
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        const body = document.body;
-        const container = document.querySelector('.container');
-        const headings = document.querySelectorAll('h1, h3, h4');
-        const links = document.querySelectorAll('a');
-        const hrs = document.querySelectorAll('hr');
-        const listItems = document.querySelectorAll('li');
-        const tableHeadersAndData = document.querySelectorAll('th, td');
-        const icons = document.querySelectorAll('.icon');
-        const socialLinks = document.querySelectorAll('.social-links a');
-        const courseIconBoxes = document.querySelectorAll('.course-icon-box');
-        const courseLists = document.querySelectorAll('ul');
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const body = document.body;
+            const container = document.querySelector('.container');
+            const headings = document.querySelectorAll('h1, h3, h4');
+            const links = document.querySelectorAll('a:not(.course-link)');
+            const courseTitleLinks = document.querySelectorAll('.course-title-link');
+            const hrs = document.querySelectorAll('hr');
+            const listItems = document.querySelectorAll('li');
+            const tableHeadersAndData = document.querySelectorAll('th, td');
+            const icons = document.querySelectorAll('.icon, .fas, .fab, .material-icons');
+            const socialLinks = document.querySelectorAll('.social-links a');
+            const courseLists = document.querySelectorAll('ul');
+            const skillsBlock = document.querySelector('.skills-block');
+            const experienceEntries = document.querySelectorAll('.experience-entry');
 
-        // Apply initial dark mode styles
-        body.classList.add('dark-mode');
-        container.classList.add('dark-mode');
-        headings.forEach(heading => heading.classList.add('dark-mode'));
-        links.forEach(link => link.classList.add('dark-mode'));
-        hrs.forEach(hr => hr.classList.add('dark-mode'));
-        listItems.forEach(item => item.classList.add('dark-mode'));
-        tableHeadersAndData.forEach(item => item.classList.add('dark-mode'));
-        icons.forEach(icon => icon.classList.add('dark-mode'));
-        socialLinks.forEach(link => link.classList.add('dark-mode'));
-        courseLists.forEach(list => list.classList.add('dark-mode'));
-        if (courseIconBoxes) {
-            courseIconBoxes.forEach(box => box.classList.add('dark-mode'));
-        }
-        darkModeToggle.classList.add('dark-mode');
-        darkModeToggle.querySelector('i').className = 'fas fa-sun';
-        darkModeToggle.querySelector('span').textContent = 'Light Mode';
+            const toggleIcon = darkModeToggle.querySelector('i');
+            const toggleText = darkModeToggle.querySelector('span');
 
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            container.classList.toggle('dark-mode');
-            headings.forEach(heading => heading.classList.toggle('dark-mode'));
-            links.forEach(link => link.classList.toggle('dark-mode'));
-            hrs.forEach(hr => hr.classList.toggle('dark-mode'));
-            listItems.forEach(item => item.classList.toggle('dark-mode'));
-            tableHeadersAndData.forEach(item => item.classList.toggle('dark-mode'));
-            icons.forEach(icon => icon.classList.toggle('dark-mode'));
-            socialLinks.forEach(link => link.classList.toggle('dark-mode'));
-            courseLists.forEach(list => list.classList.toggle('dark-mode'));
-            if (courseIconBoxes) {
-                courseIconBoxes.forEach(box => box.classList.toggle('dark-mode'));
+            const applyDarkMode = (isDarkMode) => {
+                const toggleClass = isDarkMode ? 'add' : 'remove';
+
+                body.classList[toggleClass]('dark-mode');
+                container.classList[toggleClass]('dark-mode');
+                skillsBlock.classList[toggleClass]('dark-mode');
+                darkModeToggle.classList[toggleClass]('dark-mode');
+
+                headings.forEach(heading => heading.classList[toggleClass]('dark-mode'));
+                links.forEach(link => link.classList[toggleClass]('dark-mode'));
+                courseTitleLinks.forEach(link => link.classList[toggleClass]('dark-mode'));
+                hrs.forEach(hr => hr.classList[toggleClass]('dark-mode'));
+                listItems.forEach(item => item.classList[toggleClass]('dark-mode'));
+                tableHeadersAndData.forEach(item => item.classList[toggleClass]('dark-mode'));
+                icons.forEach(icon => icon.classList[toggleClass]('dark-mode'));
+                socialLinks.forEach(link => link.classList[toggleClass]('dark-mode'));
+                courseLists.forEach(list => list.classList[toggleClass]('dark-mode'));
+                experienceEntries.forEach(entry => {
+                    entry.querySelectorAll('.job-title, .company-name-only, .job-location, .job-dates, li').forEach(el => {
+                        el.classList[toggleClass]('dark-mode');
+                    });
+                });
+
+                if (isDarkMode) {
+                    toggleIcon.className = 'fas fa-sun';
+                    toggleText.textContent = 'Light Mode';
+                } else {
+                    toggleIcon.className = 'fas fa-moon';
+                    toggleText.textContent = 'Dark Mode';
+                }
+            };
+
+            // Check localStorage for preferred mode on load
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'disabled') { // If explicitly disabled by user, apply light mode
+                applyDarkMode(false);
+            } else { // Otherwise (no preference or enabled), apply dark mode as default
+                applyDarkMode(true);
             }
-            darkModeToggle.classList.toggle('dark-mode');
 
-            if (body.classList.contains('dark-mode')) {
-                darkModeToggle.querySelector('i').className = 'fas fa-sun';
-                darkModeToggle.querySelector('span').textContent = 'Light Mode';
-            } else {
-                darkModeToggle.querySelector('i').className = 'fas fa-moon';
-                darkModeToggle.querySelector('span').textContent = 'Dark Mode';
-            }
-        });
+            darkModeToggle.addEventListener('click', () => {
+                const isDarkMode = body.classList.contains('dark-mode');
+                applyDarkMode(!isDarkMode);
+                localStorage.setItem('darkMode', !isDarkMode ? 'enabled' : 'disabled');
+            });
 
-        // Smooth transition for Hobbies and Contact Me links
-        const smoothLinks = document.querySelectorAll('.smooth-transition');
-
-        smoothLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                container.classList.add('fade-out');
-                setTimeout(() => {
-                    window.location.href = this.getAttribute('href');
-                }, 300); // Match the CSS transition duration
+            const smoothLinks = document.querySelectorAll('.smooth-transition');
+            smoothLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    container.classList.add('fade-out');
+                    setTimeout(() => {
+                        window.location.href = this.getAttribute('href');
+                    }, 300);
+                });
             });
         });
     </script>
